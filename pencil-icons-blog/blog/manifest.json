@@ -745,6 +745,51 @@
         "512": "png-512/external-link.png",
         "1024": "png-1024/external-link.png"
       }
+    },
+    {
+      "name": "coffee",
+      "source_d": null,
+      "svg": "svg/coffee.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "strokes": [
+        {
+          "d": "M 2 8 H 18 V 17 a 4 4 0 0 1 -4 4 H 6 a 4 4 0 0 1 -4 -4 V 8 Z",
+          "w_start": 0.32,
+          "w_end": 1.18
+        },
+        {
+          "d": "M 18 8 h 1 a 4 4 0 0 1 0 8 h -0.4",
+          "w_start": 0.32,
+          "w_end": 1.18
+        },
+        {
+          "d": "M 7 1.2 C 8.6 3 5.4 4.9 7 6.6",
+          "w_start": 0.2,
+          "w_end": 0.38
+        },
+        {
+          "d": "M 13 1.2 C 11.4 3 14.6 4.9 13 6.6",
+          "w_start": 0.2,
+          "w_end": 0.38
+        }
+      ],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/coffee.png",
+        "512": "png-512/coffee.png",
+        "1024": "png-1024/coffee.png"
+      }
     }
   ]
 }

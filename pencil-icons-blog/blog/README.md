@@ -12,14 +12,14 @@ project: it is a reusable brand asset, not part of an app.
 
 ## Contents
 ```
-svg/          30 vector masters @ 1024x1024  <- the real assets
+svg/          31 vector masters @ 1024x1024  <- the real assets
 png-256/      raster previews @ 256
 png-512/      raster previews @ 512
 png-1024/     raster previews @ 1024
 source-d.json original source path data per icon
 manifest.json full parameter set + validator result + warnings per icon
 preview.html  browser gallery (open directly, no server)
-contact-sheet.png  all 30 on one sheet
+contact-sheet.png  all 31 on one sheet
 ```
 
 Four things sit **next to** this folder, one level up:
@@ -86,7 +86,7 @@ travels with the shape: `chevron-left` is `chevron` turned on its side, not a ne
 that happens to look like it. The four diagonal arrows are the four corners of the same
 stroke, and they read as one family.
 
-**5 more came from Feather** (the sources are in `sources/feather-*.svg`):
+**6 more came from Feather** (the sources are in `sources/feather-*.svg`):
 
 | icon | how it was derived |
 |---|---|
@@ -95,6 +95,7 @@ stroke, and they read as one family.
 | `code` | Feather's `code`, verbatim — two chevrons |
 | `terminal` | Feather's `terminal`, verbatim — a chevron and a prompt line |
 | `external-link` | Feather's `external-link`, verbatim — a box with an arrow leaving it |
+| `coffee` | Feather's cup, re-cut and re-stroked — see [the coffee](#the-coffee) |
 
 The `d` of each one is extracted from the SVG by `feather_to_d.py`, not typed by
 hand: a mistyped arc flag turns into a spike, and there is no way to see it in the
@@ -251,7 +252,7 @@ carried through unchanged, with only the viewBox and the canvas fit fixed.
 
 ## The rectangle, used verbatim
 
-Four of the 30 icons do not come out of the stroke pipeline. `rectangle-rounded`,
+Four of the 31 icons do not come out of the stroke pipeline. `rectangle-rounded`,
 `square`, `search` and `mail` are **finished SVGs** that the build copies in as-is:
 
 ```json
@@ -434,9 +435,88 @@ Feather's `link` at 100 % plus a **plus badge** at the bottom-right, in the free
 the diagonal chain. The alternatives were worse: `link` alone does not say "copy", and
 `link-2` reads as two brackets. The badge is the standard "add link" construction.
 
+## The coffee
+
+The last of the Feather batch, and the one that took the most work. It is four strokes:
+
+| stroke | weight | what it is |
+|---|---|---|
+| the cup | `0.32 → 1.18` | Feather's cup, **cut open** at the top-left corner |
+| the handle | `0.32 → 1.18` | Feather's handle, trimmed so it stops at the cup's wall |
+| two steam lines | `0.20 → 0.38` | two thin wavy lines instead of Feather's three dashes |
+
+### Why the cup is cut
+
+A closed loop with a strong taper **always shows its seam**: the thick end cap and the
+thin start land on the same point, so one side of the seam is a lump and the other is a
+hairline. The first version had a visible black knob at the bottom-left of the cup and a
+thread-thin wall on the left.
+
+The set already has the answer, and it is the same answer the `square` and the `heart`
+use: **cut the loop open** with `cut_closed` + `perpendicular_to_prev` + `cut_at: "start"`.
+The opening lands on the corner where the stroke enters and leaves, and the pencil reads
+as having been lifted there. Same recipe, same look as the rest of the set.
+
+### Why the steam is two wavy lines and not three dashes
+
+Feather's steam is three straight 3-unit dashes. A 3-unit stroke with the base cone
+(`0.32 → 1.18`) is a **teardrop**, so all three rendered as drops of water. Two thin
+wavy lines (`w 0.20 → 0.38`) read as steam and do not fill in.
+
+### Why the handle is trimmed
+
+The handle's thick end is a round cap of radius `w_end / 2 = 0.59 u`. Ending it exactly on
+the cup's wall (x = 18) pushed that cap **into the cup's interior** — a black blob on the
+right side of the cup. Ending it at x = 18.6 puts the cap's left edge exactly on the wall,
+so it merges with the wall's own ink instead of sitting on top of it.
+
+### Two engine bugs the coffee exposed
+
+The coffee was the icon that broke, and it broke for reasons that had nothing to do with
+the coffee. All three are fixed in the skill.
+
+**1. `build_icon_multi` did not compensate the sample density for the scale.**
+`strict_per_unit` is *samples per unit of length*. `build_icon` divides it by the fit
+factor `k` before re-stroking the scaled geometry, so the sample count is the same at
+every canvas size. `build_icon_multi` did not — so a multi-stroke icon got **k times as
+many samples** at 1024 than at 256. The curvature limiter works *per sample* (a halo
+measured in samples, a fixed iteration budget), so the same shape relaxed differently at
+different resolutions: the cup passed at 24 and at 256 and broke at 1024, with the
+limiter hitting its 400-iteration ceiling and leaving a hairpin.
+
+**2. `build_icon_multi` did not scale the cut gaps either.**
+`cut_gap` and `cut_right_angle_gap` are measured in the source's units, so they have to
+grow with the geometry — `build_icon` multiplies them by `k`. Left unscaled, the opening
+shrank by `k` and the "cut" degenerated into a nick: the engine's own advice reported
+the opening as **0.03 × w_end** and asked for 0.10. That warning was the tell — the
+advice was right and the builder was wrong. With the fix the corner opens properly, and
+the cup reads exactly like the base set's `square`.
+
+**3. A perfect semicircle could collapse into a straight line.**
+The handle's arc is `a 4 4 0 0 1 0 8` — a chord of exactly `2r`, a semicircle. After the
+fit scales and rounds the coordinates to two decimals, `lam` (the W3C radius factor) came
+out as `1.0000000000000002` instead of `1.0` — **one ULP** over. That triggers the W3C
+radius scaling, and the numerator of the centre formula then evaluates to `-2.4e-7`
+instead of `0`, because the two products round differently. The parser read that as "this
+arc is impossible" and returned the **chord**: the handle came out as a vertical line,
+and a quarter of the drawing silently disappeared.
+
+The fix is in `source_path.py`: after the radius scaling, that numerator is mathematically
+zero (the scaled radii span the chord exactly), so a residue that is negligible against
+`rx²ry²` is treated as zero. A genuinely impossible arc still returns the chord.
+
+All three fixes leave the **base set byte-identical** (13/13) — the base set is built with
+`build_icon`, the single-stroke path, which already had the first and the second.
+
+### It is stable, not lucky
+
+`cut_gap` {1.4, 1.6, 1.8} × `curvature_safety` {1.15, 1.25, 1.4} × `wobble_phase`
+{0.5, 0.7, 0.9} — **27 combinations, all pass**, and the inked bounding box moves by at
+most **0.5 px out of 860** (0.06 %). The shape does not depend on where the samples land.
+
 ## Known validator artifacts
 
-**26 of 30 pass.** The four that do not are all the same thing:
+**27 of 31 pass.** The four that do not are all the same thing:
 
 - **`rectangle-rounded`**, **`square`**, **`search`** and **`mail`** — `non-canonical
   structure`, because they are pre-baked outlines rather than pipeline output. Explained in
@@ -463,7 +543,7 @@ source, so the offset has nothing to fold.
 
 Nothing that was asked for is missing any more. The set is complete: the 9 requested
 icons (`search`, `arrow-left`, `arrow-right`, `arrow-down`, `arrow-up-right`,
-`copy-link`, `github`, `linkedin`, `mail`) plus 21 more that came with them, were
+`copy-link`, `github`, `linkedin`, `mail`) plus 22 more that came with them, were
 derived from the base set, or came from Feather.
 
 **Left out on purpose**, out of the 8 Feather sources:
@@ -473,8 +553,6 @@ derived from the base set, or came from Feather.
   [the linkedin dot](#the-linkedin-dot).
 - `link` — redundant next to `copy-link`, which already *is* a link plus a badge.
 - `link-2` — it reads as two brackets, not as a link.
-- `coffee` — it renders, but the three steam drops read as debris. It wants a
-  second look before it goes in.
 
 ## Verifying
 

@@ -145,6 +145,39 @@
     {
       "name": "external-link",
       "d": "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3 L21 3 L21 9 M10 14 L21 3"
+    },
+    {
+      "name": "coffee",
+      "strokes": [
+        {
+          "d": "M 2 8 H 18 V 17 a 4 4 0 0 1 -4 4 H 6 a 4 4 0 0 1 -4 -4 V 8 Z",
+          "w_start": 0.32,
+          "w_end": 1.18,
+          "cut_closed": true,
+          "cut_gap": 1.6,
+          "cut_strategy": "perpendicular_to_prev",
+          "cut_chamfer_fillet": false,
+          "cut_at": "start",
+          "cut_right_angle_gap": 1.6
+        },
+        {
+          "d": "M 18 8 h 1 a 4 4 0 0 1 0 8 h -0.4",
+          "w_start": 0.32,
+          "w_end": 1.18
+        },
+        {
+          "d": "M 7 1.2 C 8.6 3 5.4 4.9 7 6.6",
+          "w_start": 0.2,
+          "w_end": 0.38,
+          "wobble": 0.05
+        },
+        {
+          "d": "M 13 1.2 C 11.4 3 14.6 4.9 13 6.6",
+          "w_start": 0.2,
+          "w_end": 0.38,
+          "wobble": 0.05
+        }
+      ]
     }
   ]
 }
