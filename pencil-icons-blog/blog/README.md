@@ -12,14 +12,14 @@ project: it is a reusable brand asset, not part of an app.
 
 ## Contents
 ```
-svg/          25 vector masters @ 1024x1024  <- the real assets
+svg/          27 vector masters @ 1024x1024  <- the real assets
 png-256/      raster previews @ 256
 png-512/      raster previews @ 512
 png-1024/     raster previews @ 1024
 source-d.json original source path data per icon
 manifest.json full parameter set + validator result + warnings per icon
 preview.html  browser gallery (open directly, no server)
-contact-sheet.png  all 25 on one sheet
+contact-sheet.png  all 27 on one sheet
 ```
 
 Four things sit **next to** this folder, one level up:
@@ -85,6 +85,13 @@ The rotation is applied to the **source path** and the pipeline re-strokes it, s
 travels with the shape: `chevron-left` is `chevron` turned on its side, not a new drawing
 that happens to look like it. The four diagonal arrows are the four corners of the same
 stroke, and they read as one family.
+
+**2 more came from Feather** (the sources are in `sources/feather-*.svg`):
+
+| icon | how it was derived |
+|---|---|
+| `github` | Feather's octocat, in **two strokes**: the head near-uniform, the tail tapering to its tip |
+| `copy-link` | Feather's `link` at 100 % + a plus badge at the bottom-right |
 
 ### The `rectangle-golden` is retired
 
@@ -237,7 +244,7 @@ carried through unchanged, with only the viewBox and the canvas fit fixed.
 
 ## The rectangle, used verbatim
 
-Four of the 25 icons do not come out of the stroke pipeline. `rectangle-rounded`,
+Four of the 27 icons do not come out of the stroke pipeline. `rectangle-rounded`,
 `square`, `search` and `mail` are **finished SVGs** that the build copies in as-is:
 
 ```json
@@ -340,9 +347,63 @@ radius — the dot fills in and the validator reports four failures. Drawing the
 **short stroke** instead (`M 4.7 4.3 L 5.3 4.3`) gives a dot that reads correctly and passes.
 A filled dot is not available in this style: everything is a stroke.
 
+## The github
+
+Feather's octocat, in **two strokes**: the head + body near-uniform (`w 0.82 → 1.0`) and the
+tail tapering to its tip (`w 0.40 → 0.80`). One gesture cannot carry both — a single taper
+along the head makes the head thin at the top and fat at the neck, and it stops reading as a
+closed shape. The spec uses the `strokes` key, one entry per gesture:
+
+```json
+{ "name": "github",
+  "strokes": [
+    { "d": "<head>", "w_start": 0.82, "w_end": 1.0, "wobble": 0.07 },
+    { "d": "M 9 19 C 4 20.5 4 16.5 2 16", "w_start": 0.40, "w_end": 0.80,
+      "wobble": 0.05 }
+  ] }
+```
+
+### Its corners are rounded IN THE SOURCE
+
+Feather's path is full of corners that the engine **cannot** fillet. The engine caps the
+fillet length by the length of the *straight* run next to the vertex
+(`fl = min(Li_full, Lo_full, w_end * per_w) * 0.5`), and next to an arc or a cubic there is
+no straight run — the walk-back stops after two samples. The fillet collapses to a hundredth
+of a unit, the turn becomes a hairpin, the inner offset folds over itself and the outer
+offset grows a **spike**. The first version of this icon had a visible thorn at the neck.
+
+The fix is not a parameter: it is to take the corner away from the engine. Each sharp junction
+is replaced by a **cubic fillet, tangent-continuous with both sides** — the engine then has
+no corner to fillet and the offset never folds.
+
+| corner | turn | how |
+|---|---|---|
+| both cheek notches (arc + cubic) | 127° and 70° | cubic fillet, radius 1.0 |
+| both "shoulders" (arc + arc) | 9° | cubic fillet, radius 0.8 |
+| both ear bases (cubic + arc) | 49° | cubic fillet, radius 0.9 |
+
+The tooling is `fillet_source.py`, in the skill's `scripts/` folder
+(`~/.minimax/skills/pencil-icon-style/scripts/`). It truncates each side **on its own
+curve** — an arc keeps its circle, a cubic is split with de Casteljau — and joins them with a
+Hermite cubic whose tangents are the *actual* tangents of the two curves at the cut points.
+
+One formula matters and is easy to get backwards: the distance from the vertex to the
+tangency point is **`R * tan(θ/2)`**, not `R / tan(θ/2)`. With the inverted formula, any
+turn over 90° puts the tangency points too close to the vertex: the chord comes out short,
+the cubic loops back on itself and you get a curl instead of a rounding.
+
+The result passes the validator, and the stroke could then be widened from 0.76 to 1.0 —
+the ear bases were what held it back.
+
+## The copy-link
+
+Feather's `link` at 100 % plus a **plus badge** at the bottom-right, in the free corner of
+the diagonal chain. The alternatives were worse: `link` alone does not say "copy", and
+`link-2` reads as two brackets. The badge is the standard "add link" construction.
+
 ## Known validator artifacts
 
-**21 of 25 pass.** The four that do not are all the same thing:
+**23 of 27 pass.** The four that do not are all the same thing:
 
 - **`rectangle-rounded`**, **`square`**, **`search`** and **`mail`** — `non-canonical
   structure`, because they are pre-baked outlines rather than pipeline output. Explained in
@@ -361,13 +422,15 @@ at a 90° corner fillet) is gone with the icon — the corrected rectangle is a 
 construction, and `square`, the same shape at a different aspect ratio, passes at every
 size.
 
+The `github` was on this list too, and is not any more. It read `min curvature R/(w/2) = 0.35`
+— the folds described in [the github](#the-github). The corners are now rounded in the
+source, so the offset has nothing to fold.
+
 ## Not in this set
 
-- **`copy-link`** — no such glyph in the Ionicons set, and a two-chain construction does not
-  read as "copy link" at this weight. Needs a real source.
-- **`github`** — the octocat is a filled silhouette. Stroking its contour is the only
-  mechanical option and it tangles: four validator failures and the mark is unrecognisable.
-  Its medial axis has too many endpoints to be a stroke. Needs a line-art source.
+Nothing that was asked for is missing any more. The set is complete: 9 requested icons
+(`search`, `arrow-left`, `arrow-right`, `arrow-down`, `arrow-up-right`, `copy-link`,
+`github`, `linkedin`, `mail`) plus 18 more that came with them or were derived.
 
 ## Verifying
 

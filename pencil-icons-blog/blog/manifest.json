@@ -176,7 +176,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "pencil-icons-blog/assets/square.svg",
+      "prebuilt": "assets/square.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/square.png",
@@ -322,7 +322,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "pencil-icons-blog/assets/rectangle-rounded.svg",
+      "prebuilt": "assets/rectangle-rounded.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/rectangle-rounded.png",
@@ -416,7 +416,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "pencil-icons-blog/assets/mail.svg",
+      "prebuilt": "assets/mail.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/mail.png",
@@ -438,7 +438,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "pencil-icons-blog/assets/search.svg",
+      "prebuilt": "assets/search.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/search.png",
@@ -462,20 +462,7 @@
         [],
         []
       ],
-      "hazards": [
-        {
-          "kind": "near-reversal",
-          "subpath": 2,
-          "index": 0,
-          "fold_deg": 180.0,
-          "at": [
-            13.35,
-            20.5
-          ],
-          "message": "near-reversal (180 deg fold) at 13.3,20.5 - the stroke has to come back on itself",
-          "remedy": "the inner offset folds on a fold this sharp; round the corner in the SOURCE path (replace the vertex with a short arc) or split the symbol into separate strokes"
-        }
-      ],
+      "hazards": [],
       "warnings": [],
       "validator": "pass",
       "png": {
@@ -623,6 +610,67 @@
         "256": "png-256/arrow-down-left.png",
         "512": "png-512/arrow-down-left.png",
         "1024": "png-1024/arrow-down-left.png"
+      }
+    },
+    {
+      "name": "copy-link",
+      "source_d": "M 10 13 a 5 5 0 0 0 7.54 0.54 l 3 -3 a 5 5 0 0 0 -7.07 -7.07 l -1.72 1.71 M 14 11 a 5 5 0 0 0 -7.54 -0.54 l -3 3 a 5 5 0 0 0 7.07 7.07 l 1.71 -1.71 M 15.6 18.4 L 21.4 18.4 M 18.5 15.5 L 18.5 21.3",
+      "svg": "svg/copy-link.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/copy-link.png",
+        "512": "png-512/copy-link.png",
+        "1024": "png-1024/copy-link.png"
+      }
+    },
+    {
+      "name": "github",
+      "source_d": null,
+      "svg": "svg/github.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "strokes": [
+        {
+          "d": "M 16 22 L 16 18.13 A 3.37 3.37 0 0 0 15.9647 17.3127 C 15.8125 16.3979 16.1701 15.4001 17.0622 15.1468 C 19.4603 14.4659 21.5 12.8126 21.5 8.52 A 5.4400 5.4400 0.0 0 0 20.3279 5.1478 C 20.1375 4.9069 20.0731 4.5901 20.1516 4.2933 A 5.0700 5.0700 0.0 0 0 19.9100 1.0000 C 19.91 1 18.8293 0.6794 16.3435 2.2559 C 16.1234 2.3955 15.8561 2.4392 15.6026 2.3788 A 13.38 13.38 0 0 0 9.3974 2.3788 C 9.1439 2.4392 8.8766 2.3955 8.6565 2.2559 C 6.1707 0.6794 5.09 1 5.09 1 A 5.0700 5.0700 0.0 0 0 4.8484 4.2933 C 4.9269 4.5901 4.8625 4.9069 4.6721 5.1478 A 5.4400 5.4400 0.0 0 0 3.5000 8.5500 C 3.5 13.5678 6.3284 14.9601 9.2397 15.4486 C 9.5395 15.4989 9.6657 15.8488 9.5045 16.1065 A 3.37 3.37 0 0 0 9 18.13 L 9 22",
+          "w_start": 0.82,
+          "w_end": 1.0
+        },
+        {
+          "d": "M 9 19 C 4 20.5 4 16.5 2 16",
+          "w_start": 0.4,
+          "w_end": 0.8
+        }
+      ],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/github.png",
+        "512": "png-512/github.png",
+        "1024": "png-1024/github.png"
       }
     }
   ]
