@@ -1,1 +1,15 @@
 node_modules/
+
+# Andamiaje de build de los sets de iconos
+__pycache__/
+*.pyc
+*.zip
+# Los archivos de comparacion (antes/despues) son artefactos de trabajo:
+# se entregan aparte, no versionan.
+pencil-icons-blog/*.png
+pencil-icons-blog/*.html
+pencil-icons-blog/_scratch/
+# Los SVG originales de Ionicons (MIT) de donde salieron las fuentes:
+# son upstream, no assets de la marca. El set se reconstruye igual desde
+# blog-spec.json + source-d.json sin ellos.
+pencil-icons-blog/src/

@@ -1,0 +1,628 @@
+{
+  "master_size": 1024,
+  "base": {
+    "w_start": 0.32,
+    "w_end": 1.18,
+    "fillet_per_w": 2.0,
+    "fillet_samples": 80,
+    "trim_extra": 0.4
+  },
+  "icons": [
+    {
+      "name": "chevron",
+      "source_d": "M 6 15 L 12 9 L 18 15",
+      "svg": "svg/chevron.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/chevron.png",
+        "512": "png-512/chevron.png",
+        "1024": "png-1024/chevron.png"
+      }
+    },
+    {
+      "name": "plus",
+      "source_d": "M 12 5 V 19 M 5 12 H 19",
+      "svg": "svg/plus.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/plus.png",
+        "512": "png-512/plus.png",
+        "1024": "png-1024/plus.png"
+      }
+    },
+    {
+      "name": "arrow-right",
+      "source_d": "M 5 12 H 19 M 13 6 L 19 12 L 13 18",
+      "svg": "svg/arrow-right.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-right.png",
+        "512": "png-512/arrow-right.png",
+        "1024": "png-1024/arrow-right.png"
+      }
+    },
+    {
+      "name": "zigzag",
+      "source_d": "M 3 8 L 8 16 L 12 6 L 16 16 L 21 8",
+      "svg": "svg/zigzag.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/zigzag.png",
+        "512": "png-512/zigzag.png",
+        "1024": "png-1024/zigzag.png"
+      }
+    },
+    {
+      "name": "heart",
+      "source_d": "M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z",
+      "svg": "svg/heart.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4,
+        "cut_closed": true,
+        "cut_at": "start",
+        "cut_gap": 1.6,
+        "cut_strategy": "perpendicular_to_prev",
+        "cut_chamfer_fillet": false,
+        "cut_right_angle_gap": 1.6
+      },
+      "cut_angles_deg": [
+        [
+          87.74320607354893,
+          69.62356478616361,
+          40.752870427672775,
+          69.62356478616361
+        ]
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "fail",
+      "png": {
+        "256": "png-256/heart.png",
+        "512": "png-512/heart.png",
+        "1024": "png-1024/heart.png"
+      }
+    },
+    {
+      "name": "menu",
+      "source_d": "M 4 6 H 20 M 4 12 H 20 M 4 18 H 20",
+      "svg": "svg/menu.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/menu.png",
+        "512": "png-512/menu.png",
+        "1024": "png-1024/menu.png"
+      }
+    },
+    {
+      "name": "square",
+      "source_d": null,
+      "svg": "svg/square.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": null,
+      "hazards": [],
+      "warnings": [],
+      "prebuilt": "assets/square.svg",
+      "validator": "fail",
+      "png": {
+        "256": "png-256/square.png",
+        "512": "png-512/square.png",
+        "1024": "png-1024/square.png"
+      }
+    },
+    {
+      "name": "arrow-up",
+      "source_d": "M 12 19 V 5 M 5 12 L 12 5 L 19 12",
+      "svg": "svg/arrow-up.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-up.png",
+        "512": "png-512/arrow-up.png",
+        "1024": "png-1024/arrow-up.png"
+      }
+    },
+    {
+      "name": "list",
+      "source_d": "M 8 6 H 21 M 8 12 H 21 M 8 18 H 21",
+      "svg": "svg/list.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/list.png",
+        "512": "png-512/list.png",
+        "1024": "png-1024/list.png"
+      }
+    },
+    {
+      "name": "align-justify",
+      "source_d": "M 3 6 H 21 M 3 12 H 21 M 3 18 H 21",
+      "svg": "svg/align-justify.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/align-justify.png",
+        "512": "png-512/align-justify.png",
+        "1024": "png-1024/align-justify.png"
+      }
+    },
+    {
+      "name": "hash",
+      "source_d": "M 4 20 H 20 M 4 4 H 20 M 10 4 V 20 M 14 4 V 20",
+      "svg": "svg/hash.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/hash.png",
+        "512": "png-512/hash.png",
+        "1024": "png-1024/hash.png"
+      }
+    },
+    {
+      "name": "x-close",
+      "source_d": "M 18 6 L 6 18 M 6 6 L 18 18",
+      "svg": "svg/x-close.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/x-close.png",
+        "512": "png-512/x-close.png",
+        "1024": "png-1024/x-close.png"
+      }
+    },
+    {
+      "name": "rectangle-rounded",
+      "source_d": null,
+      "svg": "svg/rectangle-rounded.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": null,
+      "hazards": [],
+      "warnings": [],
+      "prebuilt": "assets/rectangle-rounded.svg",
+      "validator": "fail",
+      "png": {
+        "256": "png-256/rectangle-rounded.png",
+        "512": "png-512/rectangle-rounded.png",
+        "1024": "png-1024/rectangle-rounded.png"
+      }
+    },
+    {
+      "name": "arrow-left",
+      "source_d": "M 19 12 H 5 M 11 6 L 5 12 L 11 18",
+      "svg": "svg/arrow-left.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-left.png",
+        "512": "png-512/arrow-left.png",
+        "1024": "png-1024/arrow-left.png"
+      }
+    },
+    {
+      "name": "arrow-down",
+      "source_d": "M 12.0 5.0 L 12.0 19.0 M 19.0 12.0 L 12.0 19.0 L 5.0 12.0",
+      "svg": "svg/arrow-down.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-down.png",
+        "512": "png-512/arrow-down.png",
+        "1024": "png-1024/arrow-down.png"
+      }
+    },
+    {
+      "name": "arrow-up-right",
+      "source_d": "M 7.05 16.95 L 16.95 7.05 M 7.05 7.05 L 16.95 7.05 L 16.95 16.95",
+      "svg": "svg/arrow-up-right.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-up-right.png",
+        "512": "png-512/arrow-up-right.png",
+        "1024": "png-1024/arrow-up-right.png"
+      }
+    },
+    {
+      "name": "mail",
+      "source_d": null,
+      "svg": "svg/mail.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": null,
+      "hazards": [],
+      "warnings": [],
+      "prebuilt": "assets/mail.svg",
+      "validator": "fail",
+      "png": {
+        "256": "png-256/mail.png",
+        "512": "png-512/mail.png",
+        "1024": "png-1024/mail.png"
+      }
+    },
+    {
+      "name": "search",
+      "source_d": null,
+      "svg": "svg/search.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": null,
+      "hazards": [],
+      "warnings": [],
+      "prebuilt": "assets/search.svg",
+      "validator": "fail",
+      "png": {
+        "256": "png-256/search.png",
+        "512": "png-512/search.png",
+        "1024": "png-1024/search.png"
+      }
+    },
+    {
+      "name": "linkedin",
+      "source_d": "M 4.7 4.3 L 5.3 4.3 M 4 9.5 V 20.5 M 9.5 20.5 V 12.4 a 3.2 3.2 0 0 1 3.2 -3.2 h 1.3 a 3.2 3.2 0 0 1 3.2 3.2 V 20.5",
+      "svg": "svg/linkedin.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [
+        {
+          "kind": "near-reversal",
+          "subpath": 2,
+          "index": 0,
+          "fold_deg": 180.0,
+          "at": [
+            13.35,
+            20.5
+          ],
+          "message": "near-reversal (180 deg fold) at 13.3,20.5 - the stroke has to come back on itself",
+          "remedy": "the inner offset folds on a fold this sharp; round the corner in the SOURCE path (replace the vertex with a short arc) or split the symbol into separate strokes"
+        }
+      ],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/linkedin.png",
+        "512": "png-512/linkedin.png",
+        "1024": "png-1024/linkedin.png"
+      }
+    },
+    {
+      "name": "chevron-down",
+      "source_d": "M 18 9 L 12 15 L 6 9",
+      "svg": "svg/chevron-down.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/chevron-down.png",
+        "512": "png-512/chevron-down.png",
+        "1024": "png-1024/chevron-down.png"
+      }
+    },
+    {
+      "name": "chevron-right",
+      "source_d": "M 9 6 L 15 12 L 9 18",
+      "svg": "svg/chevron-right.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/chevron-right.png",
+        "512": "png-512/chevron-right.png",
+        "1024": "png-1024/chevron-right.png"
+      }
+    },
+    {
+      "name": "chevron-left",
+      "source_d": "M 15 18 L 9 12 L 15 6",
+      "svg": "svg/chevron-left.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/chevron-left.png",
+        "512": "png-512/chevron-left.png",
+        "1024": "png-1024/chevron-left.png"
+      }
+    },
+    {
+      "name": "arrow-up-left",
+      "source_d": "M 16.95 16.95 L 7.05 7.05 M 7.05 16.95 L 7.05 7.05 L 16.95 7.05",
+      "svg": "svg/arrow-up-left.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-up-left.png",
+        "512": "png-512/arrow-up-left.png",
+        "1024": "png-1024/arrow-up-left.png"
+      }
+    },
+    {
+      "name": "arrow-down-right",
+      "source_d": "M 7.05 7.05 L 16.95 16.95 M 16.95 7.05 L 16.95 16.95 L 7.05 16.95",
+      "svg": "svg/arrow-down-right.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-down-right.png",
+        "512": "png-512/arrow-down-right.png",
+        "1024": "png-1024/arrow-down-right.png"
+      }
+    },
+    {
+      "name": "arrow-down-left",
+      "source_d": "M 16.95 7.05 L 7.05 16.95 M 16.95 16.95 L 7.05 16.95 L 7.05 7.05",
+      "svg": "svg/arrow-down-left.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-down-left.png",
+        "512": "png-512/arrow-down-left.png",
+        "1024": "png-1024/arrow-down-left.png"
+      }
+    }
+  ]
+}

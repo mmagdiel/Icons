@@ -1,0 +1,358 @@
+{
+  "master_size": 1024,
+  "base": {
+    "w_start": 0.32,
+    "w_end": 1.18,
+    "fillet_per_w": 2.0,
+    "fillet_samples": 80,
+    "trim_extra": 0.4
+  },
+  "icons": [
+    {
+      "name": "chevron",
+      "source_d": "M 6 15 L 12 9 L 18 15",
+      "svg": "svg/chevron.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/chevron.png",
+        "512": "png-512/chevron.png",
+        "1024": "png-1024/chevron.png"
+      }
+    },
+    {
+      "name": "plus",
+      "source_d": "M 12 5 V 19 M 5 12 H 19",
+      "svg": "svg/plus.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/plus.png",
+        "512": "png-512/plus.png",
+        "1024": "png-1024/plus.png"
+      }
+    },
+    {
+      "name": "arrow-right",
+      "source_d": "M 5 12 H 19 M 13 6 L 19 12 L 13 18",
+      "svg": "svg/arrow-right.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-right.png",
+        "512": "png-512/arrow-right.png",
+        "1024": "png-1024/arrow-right.png"
+      }
+    },
+    {
+      "name": "zigzag",
+      "source_d": "M 3 8 L 8 16 L 12 6 L 16 16 L 21 8",
+      "svg": "svg/zigzag.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/zigzag.png",
+        "512": "png-512/zigzag.png",
+        "1024": "png-1024/zigzag.png"
+      }
+    },
+    {
+      "name": "heart",
+      "source_d": "M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z",
+      "svg": "svg/heart.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4,
+        "cut_closed": true,
+        "cut_gap": 1.6,
+        "cut_strategy": "perpendicular_to_prev",
+        "cut_chamfer_fillet": false,
+        "cut_at": "start",
+        "cut_right_angle_gap": 1.6
+      },
+      "cut_angles_deg": [
+        [
+          87.74320607354893,
+          69.62356478616361,
+          40.752870427672775,
+          69.62356478616361
+        ]
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "fail",
+      "png": {
+        "256": "png-256/heart.png",
+        "512": "png-512/heart.png",
+        "1024": "png-1024/heart.png"
+      }
+    },
+    {
+      "name": "menu",
+      "source_d": "M 4 6 H 20 M 4 12 H 20 M 4 18 H 20",
+      "svg": "svg/menu.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/menu.png",
+        "512": "png-512/menu.png",
+        "1024": "png-1024/menu.png"
+      }
+    },
+    {
+      "name": "square",
+      "source_d": "M 5 5 H 19 V 19 H 5 Z",
+      "svg": "svg/square.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4,
+        "cut_closed": true,
+        "cut_gap": 1.6,
+        "cut_strategy": "perpendicular_to_prev",
+        "cut_chamfer_fillet": false,
+        "cut_at": "start",
+        "cut_right_angle_gap": 1.6
+      },
+      "cut_angles_deg": [
+        [
+          90.0,
+          90.0,
+          90.0,
+          90.0
+        ]
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/square.png",
+        "512": "png-512/square.png",
+        "1024": "png-1024/square.png"
+      }
+    },
+    {
+      "name": "arrow-up",
+      "source_d": "M 12 19 V 5 M 5 12 L 12 5 L 19 12",
+      "svg": "svg/arrow-up.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/arrow-up.png",
+        "512": "png-512/arrow-up.png",
+        "1024": "png-1024/arrow-up.png"
+      }
+    },
+    {
+      "name": "list",
+      "source_d": "M 8 6 H 21 M 8 12 H 21 M 8 18 H 21",
+      "svg": "svg/list.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/list.png",
+        "512": "png-512/list.png",
+        "1024": "png-1024/list.png"
+      }
+    },
+    {
+      "name": "align-justify",
+      "source_d": "M 3 6 H 21 M 3 12 H 21 M 3 18 H 21",
+      "svg": "svg/align-justify.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/align-justify.png",
+        "512": "png-512/align-justify.png",
+        "1024": "png-1024/align-justify.png"
+      }
+    },
+    {
+      "name": "hash",
+      "source_d": "M 4 20 H 20 M 4 4 H 20 M 10 4 V 20 M 14 4 V 20",
+      "svg": "svg/hash.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/hash.png",
+        "512": "png-512/hash.png",
+        "1024": "png-1024/hash.png"
+      }
+    },
+    {
+      "name": "x-close",
+      "source_d": "M 18 6 L 6 18 M 6 6 L 18 18",
+      "svg": "svg/x-close.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/x-close.png",
+        "512": "png-512/x-close.png",
+        "1024": "png-1024/x-close.png"
+      }
+    },
+    {
+      "name": "rectangle-golden",
+      "source_d": "M 4 7 H 20 V 17 H 4 Z",
+      "svg": "svg/rectangle-golden.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4,
+        "cut_closed": true,
+        "cut_gap": 1.6,
+        "cut_strategy": "perpendicular_to_prev",
+        "cut_chamfer_fillet": false,
+        "cut_at": "start",
+        "cut_right_angle_gap": 1.6,
+        "wobble": 0.05
+      },
+      "cut_angles_deg": [
+        [
+          90.0,
+          90.0,
+          90.0,
+          90.0
+        ]
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "fail",
+      "png": {
+        "256": "png-256/rectangle-golden.png",
+        "512": "png-512/rectangle-golden.png",
+        "1024": "png-1024/rectangle-golden.png"
+      }
+    }
+  ]
+}

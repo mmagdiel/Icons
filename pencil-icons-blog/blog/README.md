@@ -1,0 +1,395 @@
+# pencil-icons / blog — hand-drawn graphite icon set
+
+Built with the `pencil-icon-style` Mavis skill. **Vector masters are in `svg/`** — the PNGs are previews, not sources.
+
+```
+/Users/magdielmarquez/Documents/mmagdiel/Icons/pencil-icons-blog/   <- este set (el "blog")
+/Users/magdielmarquez/Documents/mmagdiel/Icons/pencil-icons/        <- el set base del que se deriva
+```
+
+The set lives in the **mmagdiel/Icons** repo, deliberately outside any client
+project: it is a reusable brand asset, not part of an app.
+
+## Contents
+```
+svg/          25 vector masters @ 1024x1024  <- the real assets
+png-256/      raster previews @ 256
+png-512/      raster previews @ 512
+png-1024/     raster previews @ 1024
+source-d.json original source path data per icon
+manifest.json full parameter set + validator result + warnings per icon
+preview.html  browser gallery (open directly, no server)
+contact-sheet.png  all 25 on one sheet
+```
+
+Four things sit **next to** this folder, one level up:
+
+- `rect-corregido.svg`, `square-corregido.svg`, `search-corregido.svg` — the supplied
+  drawings, cleaned: Inkscape's metadata stripped, the transform baked into the path and
+  the viewBox pulled tight to the ink. See [the corrected rectangle](#the-corrected-rectangle),
+  [the square](#the-square) and [the search](#the-search).
+- `sources/` — the original Inkscape exports, untouched. The provenance of the three above.
+- `assets/` — the four **prebuilt** masters (`rectangle-rounded.svg`, `square.svg`,
+  `search.svg`, `mail.svg`) plus `source-24.json`, the assembled paths in the 24-unit space.
+  These four icons do not come out of the stroke pipeline; they are copied verbatim by the
+  build. See [the rectangle, used verbatim](#the-rectangle-used-verbatim).
+
+## Shared parameters
+```python
+w_start = 0.32
+w_end = 1.18
+fillet_per_w = 2.0
+fillet_samples = 80
+trim_extra = 0.4
+```
+
+## What came from where
+
+**11 icons are the base set, reproduced from their own `source-d`** — `chevron`, `plus`,
+`arrow-right`, `zigzag`, `heart`, `menu`, `arrow-up`, `list`, `align-justify`,
+`hash`, `x-close`. They are not reprocessed: their source `d` is byte-identical, so the build
+renders the same masters. (The `heart`'s **cut** was changed in the base set itself — see
+[the heart](#the-heart) — so the two folders still match byte for byte.)
+
+**4 icons are prebuilt** — they are finished SVGs copied into the set verbatim, not
+pipeline output:
+
+| icon | what it is |
+|---|---|
+| `rectangle-rounded` | the supplied rectangle, corrected and used **as-is** — its own path, its own transform, its own look |
+| `square` | the supplied square, corrected and used **as-is** |
+| `search` | the supplied magnifier, corrected and used **as-is** |
+| `mail` | that same rectangle + the flap, which is the base `chevron` **mirrored** |
+
+**4 icons are new, derived from the base set:**
+
+| icon | how it was derived |
+|---|---|
+| `arrow-left` | mirror of `arrow-right` |
+| `arrow-down` | `arrow-up` rotated 180° |
+| `arrow-up-right` | `arrow-up` rotated 45° — the V head becomes a corner head, which is the right glyph for ↗ anyway |
+| `linkedin` | bar + `n` arch + the dot as a short stroke |
+
+**6 more are the same idea, a rotation of the source path around the canvas centre (12, 12):**
+
+| icon | how it was derived |
+|---|---|
+| `chevron-left` | the base `chevron` rotated 90° CCW |
+| `chevron-right` | the base `chevron` rotated 90° CW |
+| `chevron-down` | the base `chevron` rotated 180° |
+| `arrow-up-left` | `arrow-up-right` rotated 90° CCW |
+| `arrow-down-right` | `arrow-up-right` rotated 90° CW |
+| `arrow-down-left` | `arrow-up-right` rotated 180° |
+
+The rotation is applied to the **source path** and the pipeline re-strokes it, so the taper
+travels with the shape: `chevron-left` is `chevron` turned on its side, not a new drawing
+that happens to look like it. The four diagonal arrows are the four corners of the same
+stroke, and they read as one family.
+
+### The `rectangle-golden` is retired
+
+`rectangle-golden` was in the base set, but it is **no longer part of this set** — it is
+replaced by `rectangle-rounded`. The base set keeps its own golden rectangle as the skill's
+reference.
+
+The golden one failed on its own terms: at a 90° corner fillet it reads
+`min curvature R/(w/2) ≈ 0.96` — the offset chains overlap at the corner. The corrected
+rectangle is not that construction any more; it is the supplied drawing, so the reading
+does not apply.
+
+So the two folders now differ on **two** icons — `rectangle-golden` (retired) and `square`
+(yours, not the pipeline's) — and share the other **11** byte for byte. Say the word and the
+base set is synced too.
+
+## The heart
+
+The heart now uses the **same cut recipe as the search**:
+
+```json
+"cut_closed": true,
+"cut_gap": 1.6,
+"cut_strategy": "perpendicular_to_prev",
+"cut_chamfer_fillet": false,
+"cut_at": "start",
+"cut_right_angle_gap": 1.6
+```
+
+`perpendicular_to_prev` retracts each arm of the bottom cusp along its own direction, so the
+point survives and the opening reads as two clean strokes. `bisector` (what the heart used to
+ship with) splits the two ends **radially** instead, which at a cusp pushes one end past the
+outline and leaves the tip looking blunt.
+
+The change was made in the **base set** too (`~/Documents/pencil-icons/`), because the heart
+is the reference icon of the skill — so both folders ship the same heart, byte for byte.
+
+`cut_gap = 2.0` would make the heart pass the validator (see the cleft artifact below); `1.6`
+is what ships, for consistency with the search.
+
+## The mail
+
+The body is **the supplied rectangle, used exactly as it was sent** — same path, same
+transform, same look. Only the flap is ours.
+
+The flap is the base set's `chevron` (`M 6 15 L 12 9 L 18 15`, pointing up) **rendered and
+then mirrored vertically**. The shape is exactly the base chevron turned over: same arms,
+same 45° apex angle, same length. The **taper is flipped** — the thick end is on the right.
+That is not a drawing decision, it is arithmetic: the rectangle's top border is not uniform.
+Measured on the render, it runs from **0.375 u** thick at the left (just past the cut) to
+**0.751 u** at the right, because the stroke tapers along the whole loop:
+
+```
+x =  4     6     8    10    12    14    16    18    20
+     0.375 0.469 0.516 0.563 0.610 0.633 0.680 0.727 0.751   (u)
+```
+
+The thick end's round cap has radius `w_end / 2 = 0.59`. A cap of 1.18 u across **cannot
+fit inside a border that is 0.73 u thick** — the geometry does not allow it. So the foot
+has to sit low enough that the cap stays within the border's outer edge, and that is
+only possible on the **thick** side. The mirror puts the heavy arm there (thin left, thick
+right) without deforming the V.
+
+### Why the flap is not simply re-stroked
+
+This is the interesting part. The first attempt drew the flap from the source
+`M 6 6.163 L 12 12.163 L 18 6.163` and let the pipeline stroke it. The V came out with a
+**kink at the apex** — a flat shelf and a step, exactly like a bad corner. The base
+`chevron` has no such kink. The difference is the **wobble**:
+
+```
+                    iterations   samples relaxed   min R/r
+pico  (the chevron)        9              24        1.166
+valley (the same, flipped) 24              27        1.002
+```
+
+The wobble is a 2.3-wave sinusoid applied to the centreline **after** the fillet, so it
+perturbs the filleted corner instead of being smoothed by it. Whether that hurts depends on
+the direction the stroke travels: the same V, traversed the other way round
+(`M 18 9 L 12 15 L 6 9`), is clean again — 9 iterations, same as the peak. The engine is
+not mirror-symmetric, and a "valley" that happens to be traversed the unlucky way lands on
+the wrong side of the wobble and needs 24 iterations of curvature relaxation to recover.
+That is what the kink was.
+
+**The fix is to not re-stroke it at all.** The flap is the base chevron's *rendered
+silhouette*, mirrored. Whatever the wobble did to the chevron's corner, the mirror carries
+it over unchanged — and the chevron's corner is clean.
+
+### Two things the mirror breaks, and how they are fixed
+
+**The winding direction.** A mirror reverses the orientation of a contour. With the
+`non-zero` fill rule, two contours with **opposite** orientations cancel where they
+overlap (winding `+1` and `−1` sum to `0`), and that overlap turns **white**. The first
+mirrored version opened a round bite exactly where the flap met the border. The fix is to
+reverse the path after mirroring — `reverse_subpath()` in the assembler does that, flipping
+the arcs' `sweep` as well.
+
+**The height.** The wobble moves the chevron's end point, so the foot does not land where
+the arithmetic says. The flap is therefore anchored by **geometry, not by a number**: the
+top of its cap is aligned with the rectangle's outer edge *at the x where the cap lands*
+(the top border is not flat — it slopes from 5.75 u on the left to 5.57 u on the right, so
+the global minimum is not the right reference). The cap ends up flush: it neither pokes
+above the silhouette nor leaves the arm hanging.
+
+### Why the previous version looked deformed
+
+The first fix tilted the flap ~4° so the heavy end could duck under the border. It solved
+the poke, but a V whose two feet sit at different heights is not a V anymore — it reads
+as a mistake, and the right arm ended up floating free of the top edge. Dropping the
+flap so **both** feet sit at the same height fixes the silhouette *and* keeps the symmetry.
+The tilt is gone.
+
+The general rule this falls under: the **thick** end decides where the silhouette breaks,
+and a stroke that ends on another stroke's edge pokes past it unless it is tucked inside
+the band.
+
+### Why the body is not a pipeline rectangle any more
+
+The first attempt drew the body from the pipeline as a rounded rectangle. It was close,
+but not the same drawing: the corner was a blob (the pipeline's fillet ate the arc), and
+the whole thing read as "a rectangle that the pipeline drew" rather than as *the* rectangle.
+
+Re-deriving it could not reproduce the supplied file either — an IoU search over
+arc-vs-cubic corners × radius {0.8 … 2.0} × wobble {0, 0.05} plateaued at **0.844**, and
+the cubics never went past ~0.58. So the rectangle is now an **asset**: the supplied path,
+carried through unchanged, with only the viewBox and the canvas fit fixed.
+
+## The rectangle, used verbatim
+
+Four of the 25 icons do not come out of the stroke pipeline. `rectangle-rounded`,
+`square`, `search` and `mail` are **finished SVGs** that the build copies in as-is:
+
+```json
+{ "name": "rectangle-rounded", "prebuilt": "assets/rectangle-rounded.svg" }
+{ "name": "square",            "prebuilt": "assets/square.svg" }
+{ "name": "search",            "prebuilt": "assets/search.svg" }
+{ "name": "mail",              "prebuilt": "assets/mail.svg" }
+```
+
+`build_icon_set.py` copies the referenced file into `svg/<name>.svg` verbatim, records
+`"prebuilt": "<path>"` in `manifest.json`, and skips the geometry analysis for it.
+
+**Why:** a pre-baked outline is not a stroke. Re-stroking it would re-derive the whole
+thing and change it — the fillet, the width profile and the corner are already decided in
+the supplied file, and that is exactly what should be preserved. The build's job is to
+place it, not to redraw it.
+
+The assembly lives in `assemble_prebuilt.py` (one level up). It:
+
+1. reads the cleaned file (`*-corregido.svg` — no transform, no metadata, viewBox tight to
+   the ink) and scales it into the 24-unit space, to the long side that icon occupies in
+   the set;
+2. draws the flap by rendering the base `chevron` and **mirroring** it (see
+   [the mail](#the-mail));
+3. fits everything to the 1024×1024 canvas with the pipeline's own rule, and writes the
+   masters.
+
+`assets/source-24.json` keeps the assembled paths in the 24-unit space, so
+`source-d.json` stays in **one unit for every icon**. For these four, the value is the
+final geometry rather than a recipe to re-stroke.
+
+### The validator flags these four — and that is expected
+
+All four report `non-canonical structure: ... Expected two dense offset chains separated
+by cap arcs.`
+
+That check looks for the **signature of a pipeline output**: two dense offset chains (the
+two sides of a stroke) separated by cap arcs. The supplied drawings are filled outlines —
+one closed band, already expanded — so they have no offset chains to find. The check is
+answering a different question than the one being asked, and it is reading the *shape* of
+the file, not a defect in the drawing.
+
+The `mail` flap, which **is** pipeline output, passes every geometry check; only the
+rectangle subpath is flagged.
+
+## The search
+
+The magnifier is **your drawing**, cleaned and used as-is — it replaces the one the
+pipeline built.
+
+`search-corregido.svg` (one level up) is the supplied file with the Inkscape page and its
+metadata removed:
+
+```
+before:  width="210mm"  height="297mm"  viewBox="0 0 210 297"
+         + <sodipodi:namedview>, <defs>, inkscape:* , sodipodi:*, el comentario
+         de cabecera y el path con un transform encima
+
+after:   width="120"  height="118.067"  viewBox="0 0 120 118.067"
+         un solo <path>, sin transform, con la tinta empezando en (0,0)
+```
+
+**The path is untouched** — only the wrapper. The transform is *baked into* the path
+coordinates, not dropped: the matrix is what gives the drawing its shape, and applying it
+is the only way to keep it. `clean_svg.py` does that, and it is the same script that
+produced the corrected rectangle and square, so the three files are consistent.
+
+The master lands at 16.950 u of long side — the same footprint the pipeline's magnifier
+occupied, so it weighs the same as the rest of the set.
+
+### What the pipeline version used to be
+
+For the record, the version before this one was drawn by the pipeline: a lens ring drawn
+with four quarter-circle **arcs** and cut with `perpendicular_to_prev` at `cut_gap = 1.6`,
+plus a straight handle. Two details of that construction are worth keeping in the skill,
+even though the drawing they produced is gone:
+
+- **A ring's cut is not a corner's cut.** The bisector (the heart's recipe) is *radial* on
+  a ring, so one end goes 0.77 inside and the other 0.78 outside — that is the bump.
+  `perpendicular_to_prev` retracts both ends *along* the ring, so the only new thing is
+  the white space between them. The two axes are perpendicular, not opposite: mixing them
+  composes, it does not cancel.
+- **An arc does not survive a cut.** Moving the endpoint re-derives a different circle, so
+  the two arcs next to the cut land at r = 5.26 instead of 6.00 — the ring pinches inward
+  exactly where it opens. Cubics (`C 16.086 7.600 16.086 11.400 …`) keep the ring
+  perfectly round but lose that pinch. The pinch was kept on purpose: it is the looseness
+  the eye reads as "drawn by hand".
+
+The general rule that came out of it: **a geometric gap can never read as a cut**, because
+the round caps eat it. The visible opening is `cut_gap − w_end`, and the floor is about
+`1.2 × w_end` (1.42 at `w_end = 1.18`). Below the floor the two caps bridge the gap and
+the cut silently stops existing — the icon renders as an unbroken line and **nothing
+errors**.
+
+
+## The linkedin dot
+
+The real mark's dot is a 1.4-radius circle. At `w_end = 1.18` the stroke is 84% of that
+radius — the dot fills in and the validator reports four failures. Drawing the dot as a
+**short stroke** instead (`M 4.7 4.3 L 5.3 4.3`) gives a dot that reads correctly and passes.
+A filled dot is not available in this style: everything is a stroke.
+
+## Known validator artifacts
+
+**20 of 25 pass.** The five that do not are accounted for:
+
+- **`heart`** — `width DECREASES at 1 sample(s)`, at the top cleft between the lobes, not at
+  the cut. Pre-existing, knife-edge across size. `cut_gap = 2.0` would clear it; `1.6`
+  ships, for consistency with the other ring cuts.
+
+- **`rectangle-rounded`**, **`square`**, **`search`** and **`mail`** — `non-canonical
+  structure`, because they are pre-baked outlines rather than pipeline output. Explained in
+  [the rectangle, used verbatim](#the-rectangle-used-verbatim). Not a visual defect: the
+  drawing is the one that was supplied.
+
+The `rectangle-golden` artifact that used to be in this list (`min curvature R/(w/2) ≈ 0.96`
+at a 90° corner fillet) is gone with the icon — the corrected rectangle is a different
+construction, and `square`, the same shape at a different aspect ratio, passes at every
+size.
+
+## Not in this set
+
+- **`copy-link`** — no such glyph in the Ionicons set, and a two-chain construction does not
+  read as "copy link" at this weight. Needs a real source.
+- **`github`** — the octocat is a filled silhouette. Stroking its contour is the only
+  mechanical option and it tangles: four validator failures and the mark is unrecognisable.
+  Its medial axis has too many endpoints to be a stroke. Needs a line-art source.
+
+## Verifying
+
+```bash
+cd ~/Documents/mmagdiel/Icons/pencil-icons-blog/blog
+python3 - <<'EOF'
+import sys, glob; sys.path.insert(0, "$HOME/.minimax/skills/pencil-icon-style/scripts")
+from verify_icon import check
+for f in sorted(glob.glob("svg/*.svg")):
+    print(f, "PASS" if check(f, size=1024) == 0 else "FAIL")
+EOF
+```
+
+`verify_icon.check()` defaults to `size=256`; these masters are 1024, so pass `size=1024` or
+the viewBox check fails for the wrong reason.
+
+## Rebuilding
+
+Three steps — the cleaned sources first, then the prebuilt assets, then the build:
+
+```bash
+cd ~/Documents/mmagdiel/Icons/pencil-icons-blog
+python3 clean_svg.py               # sources/*.svg -> *-corregido.svg (limpios)
+
+python3 assemble_prebuilt.py       # -> assets/*.svg + assets/source-24.json
+
+python3 ~/.minimax/skills/pencil-icon-style/scripts/build_icon_set.py \
+  --spec blog-spec.json --out ./blog
+
+python3 _scratch/refresh_blog.py      # -> blog/source-d.json + blog/contact-sheet.png
+```
+
+`build_icon_set.py` writes neither `source-d.json` nor `contact-sheet.png` — they are
+regenerated afterwards.
+
+**Use `/opt/homebrew/bin/python3`.** The system `python3` is 3.8 and has no PIL, which the
+refresh step needs.
+
+### The rotated family
+
+The six rotated icons are not hand-written: their `d` comes from rotating an existing
+source path around the canvas centre (12, 12).
+
+```bash
+python3 _scratch/rot_icon.py     # prints the 6 entries to paste into blog-spec.json
+```
+
+The rotation is applied to the **source**, and the pipeline re-strokes it — so the taper
+travels with the shape. In SVG coordinates `y` points down, so the standard rotation
+matrix with `y` down turns the shape **clockwise** on screen; `rot_icon.py` takes the
+angle in visual degrees and gets this right for you.
