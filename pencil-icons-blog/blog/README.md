@@ -12,14 +12,14 @@ project: it is a reusable brand asset, not part of an app.
 
 ## Contents
 ```
-svg/          27 vector masters @ 1024x1024  <- the real assets
+svg/          30 vector masters @ 1024x1024  <- the real assets
 png-256/      raster previews @ 256
 png-512/      raster previews @ 512
 png-1024/     raster previews @ 1024
 source-d.json original source path data per icon
 manifest.json full parameter set + validator result + warnings per icon
 preview.html  browser gallery (open directly, no server)
-contact-sheet.png  all 27 on one sheet
+contact-sheet.png  all 30 on one sheet
 ```
 
 Four things sit **next to** this folder, one level up:
@@ -86,12 +86,19 @@ travels with the shape: `chevron-left` is `chevron` turned on its side, not a ne
 that happens to look like it. The four diagonal arrows are the four corners of the same
 stroke, and they read as one family.
 
-**2 more came from Feather** (the sources are in `sources/feather-*.svg`):
+**5 more came from Feather** (the sources are in `sources/feather-*.svg`):
 
 | icon | how it was derived |
 |---|---|
 | `github` | Feather's octocat, in **two strokes**: the head near-uniform, the tail tapering to its tip |
 | `copy-link` | Feather's `link` at 100 % + a plus badge at the bottom-right |
+| `code` | Feather's `code`, verbatim — two chevrons |
+| `terminal` | Feather's `terminal`, verbatim — a chevron and a prompt line |
+| `external-link` | Feather's `external-link`, verbatim — a box with an arrow leaving it |
+
+The `d` of each one is extracted from the SVG by `feather_to_d.py`, not typed by
+hand: a mistyped arc flag turns into a spike, and there is no way to see it in the
+source.
 
 ### The `rectangle-golden` is retired
 
@@ -244,7 +251,7 @@ carried through unchanged, with only the viewBox and the canvas fit fixed.
 
 ## The rectangle, used verbatim
 
-Four of the 27 icons do not come out of the stroke pipeline. `rectangle-rounded`,
+Four of the 30 icons do not come out of the stroke pipeline. `rectangle-rounded`,
 `square`, `search` and `mail` are **finished SVGs** that the build copies in as-is:
 
 ```json
@@ -289,6 +296,32 @@ the file, not a defect in the drawing.
 
 The `mail` flap, which **is** pipeline output, passes every geometry check; only the
 rectangle subpath is flagged.
+
+## The square
+
+Your drawing, cleaned and **squared**. The export came out of Inkscape with a
+transform matrix whose x and y scales are different (`0.0755577` against
+`0.07398388`), and that anisotropy stays baked into the path: the ink came out
+**14.978 × 14.513 u** — 3.1 % taller than wide, so a square read as a rectangle.
+
+The correction stretches **only the y axis**, around the vertical centre of the ink,
+so the ink is exactly 120 × 120 and the viewBox is `0 0 120 120`:
+
+```
+antes:      viewBox 0 0 120 116.273      tinta 14.978 x 14.513 u   (h/w 0.96894)
+despues:   viewBox 0 0 120 120          tinta 14.978 x 14.978 u   (h/w 1.00000)
+```
+
+Two things worth knowing if you do this again:
+
+- **A square viewBox does not make a square.** Making the viewBox square while the
+  ink stays rectangular just gives you a rectangle with a tighter top and bottom
+  margin. The ink itself has to be stretched.
+- The 3.1 % is not all the export's fault: 2.1 % is the matrix and the remaining
+  1 % is the shape as you drew it. The correction absorbs both, because the
+  instruction is "it is a square, it must be square".
+
+The path itself is untouched otherwise — no re-derivation, no re-stroking.
 
 ## The search
 
@@ -403,7 +436,7 @@ the diagonal chain. The alternatives were worse: `link` alone does not say "copy
 
 ## Known validator artifacts
 
-**23 of 27 pass.** The four that do not are all the same thing:
+**26 of 30 pass.** The four that do not are all the same thing:
 
 - **`rectangle-rounded`**, **`square`**, **`search`** and **`mail`** — `non-canonical
   structure`, because they are pre-baked outlines rather than pipeline output. Explained in
@@ -428,9 +461,20 @@ source, so the offset has nothing to fold.
 
 ## Not in this set
 
-Nothing that was asked for is missing any more. The set is complete: 9 requested icons
-(`search`, `arrow-left`, `arrow-right`, `arrow-down`, `arrow-up-right`, `copy-link`,
-`github`, `linkedin`, `mail`) plus 18 more that came with them or were derived.
+Nothing that was asked for is missing any more. The set is complete: the 9 requested
+icons (`search`, `arrow-left`, `arrow-right`, `arrow-down`, `arrow-up-right`,
+`copy-link`, `github`, `linkedin`, `mail`) plus 21 more that came with them, were
+derived from the base set, or came from Feather.
+
+**Left out on purpose**, out of the 8 Feather sources:
+
+- `linkedin` — Feather's version **fails**: its dot is a `<circle>`, which fills in
+  at this weight. Ours is a short stroke instead. See
+  [the linkedin dot](#the-linkedin-dot).
+- `link` — redundant next to `copy-link`, which already *is* a link plus a badge.
+- `link-2` — it reads as two brackets, not as a link.
+- `coffee` — it renders, but the three steam drops read as debris. It wants a
+  second look before it goes in.
 
 ## Verifying
 
@@ -468,6 +512,15 @@ regenerated afterwards.
 
 **Use `/opt/homebrew/bin/python3`.** The system `python3` is 3.8 and has no PIL, which the
 refresh step needs.
+
+The `d` of the five Feather icons was extracted with `feather_to_d.py`, not typed:
+
+```bash
+python3 feather_to_d.py sources/feather-code.svg     # prints one d per element
+```
+
+The elements come out one per line; in `blog-spec.json` they are joined with a space,
+which is a valid multi-subpath `d`.
 
 ### The rotated family
 

@@ -26,7 +26,7 @@ from svgkit import parse_path, path_bbox  # noqa: E402
 TARGET_WIDTH = 120.0
 
 
-def clean(src_path, out_path, title=""):
+def clean(src_path, out_path, title="", square_ink=False):
     raw = open(src_path, encoding="utf-8").read()
     d = re.search(r'\sd="([^"]+)"', raw, re.S).group(1)
     m = re.search(r'transform="matrix\(([^)]+)\)"', raw)
@@ -56,6 +56,36 @@ def clean(src_path, out_path, title=""):
     cmds = [(c, [] if c == "Z" else [(x * k + dx, y * k + dy) for x, y in ps])
             for c, ps in cmds]
     vw, vh = round(TARGET_WIDTH, 3), round(h * k, 3)
+
+    if square_ink:
+        # El dibujo es un CUADRADO, pero sale rectangular: el export de
+        # Inkscape trae una matriz con escalas distintas en x e y
+        # (0.0755577 contra 0.07398388), y esa diferencia se queda horneada
+        # en el path. Se corrige estirando SOLO el eje y para que la tinta
+        # quede cuadrada, alrededor del centro vertical de la tinta.
+        #
+        # OJO: esto no es un simple ajuste del viewBox. Un viewBox cuadrado
+        # con la tinta rectangular dentro NO da un cuadrado: el margen queda
+        # mas angosto a lo alto. Hay que estirar la tinta.
+        #
+        # La diferencia es de 3.2%: 1.021 de la matriz (el artefacto del
+        # export) y el 1% restante es la propia forma dibujada.
+        y0 = min(p[1] for c, ps in cmds if c != "Z" for p in ps)
+        y1 = max(p[1] for c, ps in cmds if c != "Z" for p in ps)
+        s = vw / vh
+        yc = (y0 + y1) / 2.0
+        cmds = [(c, [] if c == "Z" else
+                 [(x, yc + (y - yc) * s) for x, y in ps])
+                for c, ps in cmds]
+        vh = round(vh * s, 3)
+        # el escalado movio la tinta: hay que volver a pegarla al origen
+        ny0 = min(p[1] for c, ps in cmds if c != "Z" for p in ps)
+        ny1 = max(p[1] for c, ps in cmds if c != "Z" for p in ps)
+        nx0 = min(p[0] for c, ps in cmds if c != "Z" for p in ps)
+        cmds = [(c, [] if c == "Z" else
+                 [(x - nx0, y - ny0) for x, y in ps])
+                for c, ps in cmds]
+        print(f"  tinta cuadrada: y x{s:.5f} -> viewBox 0 0 {vw:g} {vh:g}")
 
     # emitir en absoluto, una sola subpath
     parts = []
@@ -102,13 +132,13 @@ def clean(src_path, out_path, title=""):
 if __name__ == "__main__":
     SRC = os.path.join(HERE, "sources")
     jobs = [
-        ("rect.svg", "rect-corregido.svg", "rectangulo: viewBox y transform horneados"),
-        ("square.svg", "square-corregido.svg", "cuadrado: viewBox y transform horneados"),
-        ("search.svg", "search-corregido.svg", "lupa: viewBox y transform horneados"),
+        ("rect.svg", "rect-corregido.svg", "rectangulo: viewBox y transform horneados", False),
+        ("square.svg", "square-corregido.svg", "cuadrado: viewBox y transform horneados, tinta cuadrada", True),
+        ("search.svg", "search-corregido.svg", "lupa: viewBox y transform horneados", False),
     ]
-    for src, out, title in jobs:
+    for src, out, title, sq in jobs:
         s = os.path.join(SRC, src)
         if not os.path.exists(s):
             print(f"  (falta {s}, se salta)")
             continue
-        clean(s, os.path.join(HERE, out), title)
+        clean(s, os.path.join(HERE, out), title, square_ink=sq)

@@ -672,6 +672,79 @@
         "512": "png-512/github.png",
         "1024": "png-1024/github.png"
       }
+    },
+    {
+      "name": "code",
+      "source_d": "M16 18 L22 12 L16 6 M8 6 L2 12 L8 18",
+      "svg": "svg/code.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/code.png",
+        "512": "png-512/code.png",
+        "1024": "png-1024/code.png"
+      }
+    },
+    {
+      "name": "terminal",
+      "source_d": "M4 17 L10 11 L4 5 M12 19 L20 19",
+      "svg": "svg/terminal.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/terminal.png",
+        "512": "png-512/terminal.png",
+        "1024": "png-1024/terminal.png"
+      }
+    },
+    {
+      "name": "external-link",
+      "source_d": "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3 L21 3 L21 9 M10 14 L21 3",
+      "svg": "svg/external-link.svg",
+      "params": {
+        "w_start": 0.32,
+        "w_end": 1.18,
+        "fillet_per_w": 2.0,
+        "fillet_samples": 80,
+        "trim_extra": 0.4
+      },
+      "cut_angles_deg": [
+        [],
+        [],
+        []
+      ],
+      "hazards": [],
+      "warnings": [],
+      "validator": "pass",
+      "png": {
+        "256": "png-256/external-link.png",
+        "512": "png-512/external-link.png",
+        "1024": "png-1024/external-link.png"
+      }
     }
   ]
 }
