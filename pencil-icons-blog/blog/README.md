@@ -119,11 +119,34 @@ point survives and the opening reads as two clean strokes. `bisector` (what the 
 ship with) splits the two ends **radially** instead, which at a cusp pushes one end past the
 outline and leaves the tip looking blunt.
 
-The change was made in the **base set** too (`~/Documents/pencil-icons/`), because the heart
-is the reference icon of the skill — so both folders ship the same heart, byte for byte.
+The change was made in the **base set** too (`~/Documents/mmagdiel/Icons/pencil-icons/`), because the
+heart is the reference icon of the skill — so both folders ship the same heart, byte for byte.
 
-`cut_gap = 2.0` would make the heart pass the validator (see the cleft artifact below); `1.6`
-is what ships, for consistency with the search.
+### The cleft is rounded in the source
+
+The heart's source used to meet two lobe arcs at a hard cusp, `(12, 8.4)`, with the tangent
+reversing. The engine fillets corners, and the fillet length is capped by the length of the
+*straight run* next to the vertex — next to an arc there is no straight run, so the fillet
+collapsed to a couple of hundredths of a unit. The turn became a hairpin whose inner offset
+folded over itself, and the leftover of that fold is the little nick that showed up in the notch.
+
+It was worse than a cosmetic flaw: **the nick was a lottery**. `cut_gap` 1.6 / 1.8 / 2.0 crossed
+with `curvature_safety` 1.25 / 1.5 / 1.6 / 1.9 gave a different notch each time — some with a
+nick, some without — and the validator's verdict flipped with it, on a shape that had not changed.
+
+Rounding the cleft with a 0.4-unit arc removes the corner, so there is nothing left for the
+fillet to collapse on:
+
+```
+before:  M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z
+after:   M12 21s-7-4.5-7-10A4 4 0 0 1 11.7 8.0597A0.4 0.4 0 0 0 12.3 8.0597A4 4 0 0 1 19 11c0 5.5-7 10-7 10z
+```
+
+The result: the notch is a **clean pencil point** instead of a flat-bottomed V, the inner offset
+never folds, and all 36 parameter combinations render the same and pass. The shape barely moves
+— 3.2% of the inked pixels — because the two lobe arcs are only shortened by 1.7 degrees each.
+
+`cut_gap = 1.6` still ships, unchanged.
 
 ## The mail
 
@@ -319,16 +342,19 @@ A filled dot is not available in this style: everything is a stroke.
 
 ## Known validator artifacts
 
-**20 of 25 pass.** The five that do not are accounted for:
-
-- **`heart`** — `width DECREASES at 1 sample(s)`, at the top cleft between the lobes, not at
-  the cut. Pre-existing, knife-edge across size. `cut_gap = 2.0` would clear it; `1.6`
-  ships, for consistency with the other ring cuts.
+**21 of 25 pass.** The four that do not are all the same thing:
 
 - **`rectangle-rounded`**, **`square`**, **`search`** and **`mail`** — `non-canonical
   structure`, because they are pre-baked outlines rather than pipeline output. Explained in
   [the rectangle, used verbatim](#the-rectangle-used-verbatim). Not a visual defect: the
   drawing is the one that was supplied.
+
+The `heart` used to be on this list and is not any more. The flag was `width DECREASES`, at
+the **top cleft** between the lobes, and it was an artifact of two bugs that cancelled out:
+the outer and inner offset chains desynchronised by one sample at the cusp, and the check
+paired them **by index** instead of by station. Both are fixed — the chains are now aligned
+before measuring, the tolerance is relative instead of 0.02 px, and the cleft is rounded in the
+source so the desync never happens. See [the heart](#the-heart).
 
 The `rectangle-golden` artifact that used to be in this list (`min curvature R/(w/2) ≈ 0.96`
 at a 90° corner fillet) is gone with the icon — the corrected rectangle is a different

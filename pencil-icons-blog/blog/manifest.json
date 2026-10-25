@@ -104,7 +104,7 @@
     },
     {
       "name": "heart",
-      "source_d": "M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z",
+      "source_d": "M12 21s-7-4.5-7-10A4 4 0 0 1 11.7 8.0597A0.4 0.4 0 0 0 12.3 8.0597A4 4 0 0 1 19 11c0 5.5-7 10-7 10z",
       "svg": "svg/heart.svg",
       "params": {
         "w_start": 0.32,
@@ -122,14 +122,15 @@
       "cut_angles_deg": [
         [
           87.74320607354893,
-          69.62356478616361,
-          40.752870427672775,
-          69.62356478616361
+          66.30569591954644,
+          23.694304080453577,
+          23.694304080453577,
+          66.30569591954644
         ]
       ],
       "hazards": [],
       "warnings": [],
-      "validator": "fail",
+      "validator": "pass",
       "png": {
         "256": "png-256/heart.png",
         "512": "png-512/heart.png",
@@ -175,7 +176,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "assets/square.svg",
+      "prebuilt": "pencil-icons-blog/assets/square.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/square.png",
@@ -321,7 +322,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "assets/rectangle-rounded.svg",
+      "prebuilt": "pencil-icons-blog/assets/rectangle-rounded.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/rectangle-rounded.png",
@@ -415,7 +416,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "assets/mail.svg",
+      "prebuilt": "pencil-icons-blog/assets/mail.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/mail.png",
@@ -437,7 +438,7 @@
       "cut_angles_deg": null,
       "hazards": [],
       "warnings": [],
-      "prebuilt": "assets/search.svg",
+      "prebuilt": "pencil-icons-blog/assets/search.svg",
       "validator": "fail",
       "png": {
         "256": "png-256/search.png",

@@ -1,4 +1,5 @@
 node_modules/
+.DS_Store
 
 # Andamiaje de build de los sets de iconos
 __pycache__/
@@ -9,6 +10,7 @@ __pycache__/
 pencil-icons-blog/*.png
 pencil-icons-blog/*.html
 pencil-icons-blog/_scratch/
+pencil-icons/_scratch/
 # Los SVG originales de Ionicons (MIT) de donde salieron las fuentes:
 # son upstream, no assets de la marca. El set se reconstruye igual desde
 # blog-spec.json + source-d.json sin ellos.
